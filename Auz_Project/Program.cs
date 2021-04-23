@@ -17,6 +17,7 @@ namespace Auz_Project
             Console.ReadKey();
             Console.Clear();
         }
+        #region Критерий Гермейера
 
         /// <summary>
         /// Шаг 1.
@@ -93,6 +94,50 @@ namespace Auz_Project
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Определение выгодного проекта
+        /// </summary>
+        /// <param Gmax=double></param>
+        static string SelectProject(double Gmax, double qj)
+        {
+            double[] arE1 = { 94, 50, 18 };                        
+            double[] arE2 = { 51, 27, 11 };           
+            double[] arE3 = { 19, 11, 7 };         
+            string E1 = "E1 эффективнее";
+            string E2 = "E2 эффективнее";
+            string E3 = "E3 эффективнее";
+
+            for (int i = 0; i < arE1.Length; i++)
+            {
+                arE1[i] = arE1[i] * qj;
+                Math.Round(arE1[i], 2);
+                if (arE1[i] == Gmax)
+                return E1;
+            }
+            for (int i = 0; i < arE2.Length; i++)
+            {
+                arE2[i] = arE2[i] * qj;
+                Math.Round(arE2[i], 2);
+                if (arE2[i] == Gmax) 
+                return E2;
+            }
+            for (int i = 0; i < arE3.Length; i++)
+            {
+                arE3[i] = arE3[i] * qj;
+                Math.Round(arE3[i], 2);
+                if (arE3[i] == Gmax) 
+                return E3;
+            }
+
+            return null;
+
+        }
+        static void InputProject(string Project)
+        {
+            Console.WriteLine("\nПриходим к выводу что {0}",Project); Console.ReadKey();
+        }
+        #endregion
+
         static void Main(string[] args)
         {
             Task();
@@ -107,6 +152,15 @@ namespace Auz_Project
             Two(Gmin);
             double Gmax = Three(Gmin);
             Three(Gmax);
+            string Project = SelectProject(Gmax, qj);
+            InputProject(Project);
+
+
+            /*
+            Осталось выполнить:
+            1. Минимаксный критерии
+            2. Возможность ввода параметров от пользователя 
+             */
         }
     }
 }
