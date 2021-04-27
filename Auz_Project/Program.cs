@@ -13,10 +13,86 @@ namespace Auz_Project
         static void Task() 
         {
             Console.WriteLine(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\task.txt")+
-                                                "\n\nНажмите на любую клавишу для продолжения...");
+                                                "\n\nНажмите на любую на клавишу для продолжения...");
             Console.ReadKey();
-            Console.Clear();
         }
+
+        /// <summary>
+        ///  Функционал программы
+        /// </summary>
+        static void Choice()
+        {
+            Console.WriteLine(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice.txt"));
+        }
+
+        /// <summary>
+        /// Отправка числа на кейсы для выбора 
+        /// </summary>
+        /// <returns></returns>
+        static string YourСhoice()
+        {           
+            Console.Write("\nВыберите нужный вариант для продолжения: ");
+            string number = Console.ReadLine();
+            Console.Clear();
+            return number;
+        }
+        
+        /// <summary>
+        /// Заполнение массива с клавиатуры
+        /// </summary>
+        /// <param name="ar"></param>
+        /// <returns>Заполненный массив</returns>
+        static double [] FillArray(double [] ar)
+        {
+            for (int i = 0; i < ar.Length; i++)
+            {
+                Console.Write("E = ");
+                ar[i] = double.Parse(Console.ReadLine());
+                Console.Clear();
+            }
+            return ar;
+        }
+
+        /// <summary>
+        /// Вывод массива
+        /// </summary>
+        /// <param значения проекта="ar"></param>
+        static void OutputArray(double [] ar1, double[] ar2, double[] ar3)
+        {
+            Console.Write("E1 ={");
+            for (int i = 0; i < ar1.Length; i++)
+            {
+                Console.Write($" {ar1[i]} ");
+            }
+            Console.Write("}");
+            Console.WriteLine();
+            Console.Write("E2 ={");
+            for (int i = 0; i < ar2.Length; i++)
+            {
+                Console.Write($" {ar2[i]} ");
+            }
+            Console.Write("}");
+            Console.WriteLine();
+            Console.Write("E3 ={");
+            for (int i = 0; i < ar3.Length; i++)
+            {
+                Console.Write($" {ar3[i]} ");
+            }
+            Console.Write("}");
+            Console.ReadKey();
+        }
+
+        /// <summary>
+        /// Заполнение с клавиатуры известной вероятности состояния
+        /// </summary>
+        /// <returns>известная вероятность состояния</returns>
+        static double InputQJ()
+        {
+            Console.Write("qj = ");
+            double qj = double.Parse(Console.ReadLine());
+            return qj;
+        }
+
         #region Критерий Гермейера
 
         /// <summary>
@@ -137,29 +213,54 @@ namespace Auz_Project
             Console.WriteLine("\nПриходим к выводу что {0}",Project); Console.ReadKey();
         }
         #endregion
-
+        
         static void Main(string[] args)
         {
             Task();
+            Choice();
+            string numberChoice = YourСhoice();
+            switch(numberChoice)
+            {
+                case "1":                                   // параметры по умолчанию
 
-            double[] E1 = { 94, 50, 18 };           // проект, требующий больших вложений             
-            double[] E2 = { 51, 27, 11 };           // проект, требующий средних вложений
-            double[] E3 = { 19, 11, 7  };           // проект, требующий малых вложений
-            double qj = 0.33;                       // известная вероятность состояния
-            
-            One(E1, E2, E3, qj);
-            double[] Gmin = Two(E1, E2, E3);
-            Two(Gmin);
-            double Gmax = Three(Gmin);
-            Three(Gmax);
-            string Project = SelectProject(Gmax, qj);
-            InputProject(Project);
+                    double[] E1 = { 94, 50, 18 };           // проект, требующий больших вложений             
+                    double[] E2 = { 51, 27, 11 };           // проект, требующий средних вложений
+                    double[] E3 = { 19, 11, 7 };            // проект, требующий малых вложений
+                    double qj = 0.33;                       // известная вероятность состояния
+
+                    One(E1, E2, E3, qj);
+                    double[] Gmin = Two(E1, E2, E3);
+                    Two(Gmin);
+                    double Gmax = Three(Gmin);
+                    Three(Gmax);
+                    string Project = SelectProject(Gmax, qj);
+                    InputProject(Project);
+                    break;
+
+                case "2":
+                    double[] e1 = new double [3]; FillArray(e1); 
+                    double[] e2 = new double [3]; FillArray(e2); 
+                    double[] e3 = new double [3]; FillArray(e3);
+                    double qj2 = InputQJ();
+                    OutputArray(e1,e2,e3);
+
+                    break;
+
+                case "3":
+                    Task();
+                    Console.Clear();
+                    break;
+
+
+            }
+           
 
 
             /*
             Осталось выполнить:
-            1. Минимаксный критерии
-            2. Возможность ввода параметров от пользователя 
+            1. Минимаксный критерий
+            2. Возможность ввода параметров от пользователя +
+            3. Сделать рассчет параметров от пользователя
              */
         }
     }
