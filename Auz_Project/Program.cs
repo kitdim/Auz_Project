@@ -7,6 +7,7 @@ namespace Auz_Project
 {
     class Program
     {
+        #region Задание, функционал, выбор кейса
         /// <summary>
         /// Задание
         /// </summary>
@@ -36,7 +37,9 @@ namespace Auz_Project
             Console.Clear();
             return number;
         }
-        
+        #endregion
+
+        #region Заполнение данных от пользователя
         /// <summary>
         /// Заполнение массива с клавиатуры
         /// </summary>
@@ -104,6 +107,7 @@ namespace Auz_Project
             double qj = double.Parse(Console.ReadLine());
             return qj;
         }
+        #endregion
 
         #region Критерий Гермейера
 
@@ -308,6 +312,11 @@ namespace Auz_Project
 
                 case "3":
                     Task();
+                    Console.Clear();
+                    break;
+
+                default:
+                    Console.WriteLine("Делается");
                     Console.Clear();
                     break;
 
