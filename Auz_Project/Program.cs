@@ -226,7 +226,7 @@ namespace Auz_Project
 
         }
 
-        static string SelectProject(double Gmax, double qj, double [] ar1, double [] ar2, double [] ar3)
+        static string SelectProject(double Gmax, double [] ar1, double [] ar2, double [] ar3)
         {
             double[] arE1 = ar1;
             double[] arE2 = ar2;
@@ -238,21 +238,21 @@ namespace Auz_Project
 
             for (int i = 0; i < arE1.Length; i++)
             {
-                arE1[i] = arE1[i] * qj;
+                
                 Math.Round(arE1[i], 2);
                 if (arE1[i] == Gmax)
                     return E1;
             }
             for (int i = 0; i < arE2.Length; i++)
             {
-                arE2[i] = arE2[i] * qj;
+                
                 Math.Round(arE2[i], 2);
                 if (arE2[i] == Gmax)
                     return E2;
             }
             for (int i = 0; i < arE3.Length; i++)
             {
-                arE3[i] = arE3[i] * qj;
+                
                 Math.Round(arE3[i], 2);
                 if (arE3[i] == Gmax)
                     return E3;
@@ -306,7 +306,7 @@ namespace Auz_Project
                     Two(Gmin2);
                     double Gmax2 = Three(Gmin2);
                     Three(Gmax2);
-                    string Project2 = SelectProject(Gmax2, qj2, e1Copy, e2Copy, e3Copy);
+                    string Project2 = SelectProject(Gmax2, e1Copy, e2Copy, e3Copy);
                     InputProject(Project2);
 
                     break;
@@ -331,7 +331,9 @@ namespace Auz_Project
             1. Минимаксный критерий
             2. Возможность ввода параметров от пользователя +
             3. Сделать рассчет параметров от пользователя +/- (Реализовать ref/out к варианту 2.: ввод данных )
-            4. Проблема при выборе лучшего проекта, разобратся 
+            4. Проблема при выборе лучшего проекта, разобратся +, не нужно было умножать числа в массиве, в нем уже сохранилось значение
+               после шага 1.Перемножить с известной вероятностью состаяния состоянием
+            5. Реализовать дружелюбный для пользователя интерфейс
              */
         }
     }
