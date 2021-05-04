@@ -8,14 +8,14 @@ namespace Auz_Project
 {
     class Program
     {
-        #region Задание, функционал, выбор кейса
+        #region Задание, функционал, выбор кейса, прощание
         /// <summary>
         /// Задание
         /// </summary>
         static void Task() 
         {
-            Console.WriteLine(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\task.txt")+
-                                                "\n\nНажмите на любую на клавишу для продолжения...");
+            Console.Write(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\task.txt")+
+                                            "\n\nНажмите на любую на клавишу для продолжения...");
             Console.ReadKey();
         }
 
@@ -37,6 +37,27 @@ namespace Auz_Project
             string number = Console.ReadLine();
             Console.Clear();
             return number;
+        }
+
+        /// <summary>
+        /// Прощание с пользователем
+        /// </summary>
+        static void Goodbye()
+        {
+            Random rnd = new Random();
+            int value = rnd.Next(1, 4); 
+            switch (value)
+            {
+                case 1:
+                    Console.WriteLine("Досвидание!");
+                    break;
+                case 2:
+                    Console.WriteLine("Пока!");
+                    break;
+                case 3:
+                    Console.WriteLine("Всего доброго!");
+                    break;
+            }
         }
         #endregion
 
@@ -269,59 +290,68 @@ namespace Auz_Project
         
         static void Main(string[] args)
         {
-            Task();
-            Choice();
-            string numberChoice = YourСhoice();
-            switch(numberChoice)
+            while (true)
             {
-                case "1":                                   // параметры по умолчанию
+                Choice();
+                string numberChoice = YourСhoice();
+                switch (numberChoice)
+                {
+                    case "1":                                   // параметры по умолчанию
 
-                    double[] E1 = { 94, 50, 18 };           // проект, требующий больших вложений             
-                    double[] E2 = { 51, 27, 11 };           // проект, требующий средних вложений
-                    double[] E3 = { 19, 11, 7 };            // проект, требующий малых вложений
-                    double qj = 0.33;                       // известная вероятность состояния
+                        double[] E1 = { 94, 50, 18 };           // проект, требующий больших вложений             
+                        double[] E2 = { 51, 27, 11 };           // проект, требующий средних вложений
+                        double[] E3 = { 19, 11, 7 };            // проект, требующий малых вложений
+                        double qj = 0.33;                       // известная вероятность состояния
 
-                    One(E1, E2, E3, qj);
-                    double[] Gmin = Two(E1, E2, E3);
-                    Two(Gmin);
-                    double Gmax = Three(Gmin);
-                    Three(Gmax);
-                    string Project = SelectProject(Gmax, qj);
-                    InputProject(Project);
+                        One(E1, E2, E3, qj);
+                        double[] Gmin = Two(E1, E2, E3);
+                        Two(Gmin);
+                        double Gmax = Three(Gmin);
+                        Three(Gmax);
+                        string Project = SelectProject(Gmax, qj);
+                        InputProject(Project);
+                        
 
-                    break;
+                        break;
 
-                case "2":                                   // ввод параметров от пользователя
+                    case "2":                                   // ввод параметров от пользователя
 
-                    double[] e1 = new double [3]; FillArray(e1);
-                    double[] e2 = new double [3]; FillArray(e2); 
-                    double[] e3 = new double [3]; FillArray(e3);
-                    double qj2 = InputQJ();
-                    double[] e1Copy = CopyArray(e1);
-                    double[] e2Copy = CopyArray(e2);
-                    double[] e3Copy = CopyArray(e3);
-                    OutputArray(e1,e2,e3);
-                    One(e1, e2, e3, qj2);
-                    double[] Gmin2 = Two(e1, e2, e3);
-                    Two(Gmin2);
-                    double Gmax2 = Three(Gmin2);
-                    Three(Gmax2);
-                    string Project2 = SelectProject(Gmax2, e1Copy, e2Copy, e3Copy);
-                    InputProject(Project2);
+                        double[] e1 = new double[3]; FillArray(e1);
+                        double[] e2 = new double[3]; FillArray(e2);
+                        double[] e3 = new double[3]; FillArray(e3);
+                        double qj2 = InputQJ();
+                        double[] e1Copy = CopyArray(e1);
+                        double[] e2Copy = CopyArray(e2);
+                        double[] e3Copy = CopyArray(e3);
+                        OutputArray(e1, e2, e3);
+                        One(e1, e2, e3, qj2);
+                        double[] Gmin2 = Two(e1, e2, e3);
+                        Two(Gmin2);
+                        double Gmax2 = Three(Gmin2);
+                        Three(Gmax2);
+                        string Project2 = SelectProject(Gmax2, e1Copy, e2Copy, e3Copy);
+                        InputProject(Project2);
 
-                    break;
+                        break;
 
-                case "3":
-                    Task();
-                    Console.Clear();
-                    break;
+                    case "3":
 
-                default:
-                    Console.WriteLine("Делается");
-                    Console.Clear();
-                    break;
+                        Task();
+                        Console.Clear(); 
+                        break;
 
+                    case "4":
+                        Goodbye();
+                        Console.ReadKey();
+                        break;
 
+                    default:
+                        Console.Write("Делается....");
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;
+                }
+                break;
             }
            
 
