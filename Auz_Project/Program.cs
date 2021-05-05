@@ -49,7 +49,7 @@ namespace Auz_Project
             switch (value)
             {
                 case 1:
-                    Console.WriteLine("Досвидание!");
+                    Console.WriteLine("До свидание!");
                     break;
                 case 2:
                     Console.WriteLine("Пока!");
@@ -58,6 +58,8 @@ namespace Auz_Project
                     Console.WriteLine("Всего доброго!");
                     break;
             }
+            Console.ReadKey();
+
         }
         #endregion
 
@@ -292,8 +294,10 @@ namespace Auz_Project
         {
             while (true)
             {
+                Console.Clear();
                 Choice();
                 string numberChoice = YourСhoice();
+                if (numberChoice == "4") { Goodbye(); break; }
                 switch (numberChoice)
                 {
                     case "1":                                   // параметры по умолчанию
@@ -311,8 +315,7 @@ namespace Auz_Project
                         string Project = SelectProject(Gmax, qj);
                         InputProject(Project);
                         
-
-                        break;
+                        continue;
 
                     case "2":                                   // ввод параметров от пользователя
 
@@ -332,38 +335,35 @@ namespace Auz_Project
                         string Project2 = SelectProject(Gmax2, e1Copy, e2Copy, e3Copy);
                         InputProject(Project2);
 
-                        break;
+                        continue;
 
                     case "3":
 
                         Task();
                         Console.Clear(); 
-                        break;
-
-                    case "4":
-                        Goodbye();
-                        Console.ReadKey();
-                        break;
+                        continue;
 
                     default:
                         Console.Write("Делается....");
                         Console.ReadKey();
                         Console.Clear();
-                        break;
+                        continue;
                 }
-                break;
             }
            
 
 
             /*
             Осталось выполнить:
-            1. Минимаксный критерий
+            1. Минимаксный критерий !
             2. Возможность ввода параметров от пользователя +
+                2.1. В отрицательные значения перенести на шаге 1
             3. Сделать рассчет параметров от пользователя +/- (Реализовать ref/out к варианту 2.: ввод данных )
             4. Проблема при выборе лучшего проекта, разобратся +, не нужно было умножать числа в массиве, в нем уже сохранилось значение
-               после шага 1.Перемножить с известной вероятностью состаяния состоянием
-            5. Реализовать дружелюбный для пользователя интерфейс
+               после шага 1.Перемножить с известной вероятностью состаяния состоянием РЕШЕНО
+            5. Реализовать дружелюбный для пользователя интерфейс +/-
+                5.1. Дописать что происходит на каждом шаге
+
              */
         }
     }
