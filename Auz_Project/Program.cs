@@ -136,6 +136,40 @@ namespace Auz_Project
         #region Критерий Гермейера
 
         /// <summary>
+        /// Шаг 0. Находим максимальное число в трёх матрицах 
+        /// и отмимаем его от каждого элемента в матрицах
+        /// </summary>
+        /// <param name="arE1"></param>
+        /// <param name="arE2"></param>
+        /// <param name="arE3"></param>
+        static void Zero(double[] arE1, double[] arE2, double[] arE3)
+        {
+            double maxE1 = arE1.Max();
+            double maxE2 = arE2.Max();
+            double maxE3 = arE3.Max();
+            double max;
+
+            if (maxE1 > maxE2 && maxE1 > maxE3) max = maxE1 + 1;
+            else if (maxE2 > maxE1 && maxE2 > maxE3) max = maxE2 + 1;
+            else max = maxE3 + 1;
+
+            for (int i = 0; i < arE1.Length; i++)
+            {
+                arE1[i] -= max;
+            }
+
+            for (int i = 0; i < arE2.Length; i++)
+            {
+                arE2[i] -= max;
+            }
+
+            for (int i = 0; i < arE3.Length; i++)
+            {
+                arE3[i] -= max;
+            }
+        }
+
+        /// <summary>
         /// Шаг 1.
         /// Умножение каждого элемента в матрице
         /// на известную вероятность состояния
@@ -143,8 +177,8 @@ namespace Auz_Project
         /// <param ar="double[]"></param>
         static void One(double[] arE1, double[] arE2, double[] arE3, double qj)
         {
-            Console.WriteLine("Шаг 1.");
-            Console.Write("E1 = ");
+            Console.WriteLine("Шаг 1. Умножение каждого элемента в матрице на известную вероятность состояния");
+            Console.Write("\nE1 = ");
             for (int i = 0; i < arE1.Length; i++)
             {
                 arE1[i] = arE1[i] * qj;
@@ -185,8 +219,8 @@ namespace Auz_Project
         }
         static void Two(double[] ar)
         {
-            Console.WriteLine("\nШаг 2.\n" +
-                                "G1 = {0}\n" +
+            Console.WriteLine("\nШаг 2. Находим минимальное значение\n" +
+                                "\nG1 = {0}\n" +
                                 "G2 = {1}\n" +
                                 "G3 = {2}", ar[0], ar[1], ar[2]);
             Console.WriteLine("\nНажмите на любую клавишу для продолжения...");
@@ -205,7 +239,7 @@ namespace Auz_Project
         }
         static void Three(double Gmax)
         {
-            Console.WriteLine("\nШаг 3." +
+            Console.WriteLine("\nШаг 3. Находим максимальное значение среди минимальных значений\n" +
                               "\nGmax = {0}", Gmax);
             Console.ReadKey();
         }
@@ -214,17 +248,24 @@ namespace Auz_Project
         /// Определение выгодного проекта
         /// </summary>
         /// <param Gmax=double></param>
-        static string SelectProject(double Gmax, double qj)
+        static string SelectProject(double Gmax, double qj)        
         {
+            /* Ошибка 
+             1. Ишет нужное значение Gmax без ранее 
+                выполнннего шага ZERO(вычитание из каждого элемента матрицы 
+                самое максмальное значение из все проектов
+             */
             double[] arE1 = { 94, 50, 18 };                        
             double[] arE2 = { 51, 27, 11 };           
             double[] arE3 = { 19, 11, 7 };         
             string E1 = "E1 эффективнее";
             string E2 = "E2 эффективнее";
             string E3 = "E3 эффективнее";
+            string error = "ошибка";
 
             for (int i = 0; i < arE1.Length; i++)
             {
+                
                 arE1[i] = arE1[i] * qj;
                 Math.Round(arE1[i], 2);
                 if (arE1[i] == Gmax)
@@ -232,6 +273,7 @@ namespace Auz_Project
             }
             for (int i = 0; i < arE2.Length; i++)
             {
+                
                 arE2[i] = arE2[i] * qj;
                 Math.Round(arE2[i], 2);
                 if (arE2[i] == Gmax) 
@@ -239,13 +281,14 @@ namespace Auz_Project
             }
             for (int i = 0; i < arE3.Length; i++)
             {
+                
                 arE3[i] = arE3[i] * qj;
                 Math.Round(arE3[i], 2);
                 if (arE3[i] == Gmax) 
                 return E3;
             }
 
-            return null;
+            return error;
 
         }
 
@@ -307,6 +350,11 @@ namespace Auz_Project
                         double[] E3 = { 19, 11, 7 };            // проект, требующий малых вложений
                         double qj = 0.33;                       // известная вероятность состояния
 
+                        Zero(E1, E2, E3);
+                        DimaLibrary.MyLibrary.InputArrayWrite(E1); Console.WriteLine();
+                        DimaLibrary.MyLibrary.InputArrayWrite(E2); Console.WriteLine();
+                        DimaLibrary.MyLibrary.InputArrayWrite(E3); Console.WriteLine();
+                        Console.ReadKey();
                         One(E1, E2, E3, qj);
                         double[] Gmin = Two(E1, E2, E3);
                         Two(Gmin);
@@ -357,12 +405,15 @@ namespace Auz_Project
             Осталось выполнить:
             1. Минимаксный критерий !
             2. Возможность ввода параметров от пользователя +
-                2.1. В отрицательные значения перенести на шаге 1
-            3. Сделать рассчет параметров от пользователя +/- (Реализовать ref/out к варианту 2.: ввод данных )
+                2.1. В отрицательные значения перенести на шаге 1 +/- Ошибка не выводит лучший проект. Коммент оставил
+                2.2. Исправить ошибку ошибку в 2.1
+            3. Сделать рассчет параметров от пользователя +/- 
+                3.1 Реализовать ref/out к варианту 2.: ввод данных 
+                3.3 Реализовать трехмерный массив вместо 3 отдельных массивов
             4. Проблема при выборе лучшего проекта, разобратся +, не нужно было умножать числа в массиве, в нем уже сохранилось значение
                после шага 1.Перемножить с известной вероятностью состаяния состоянием РЕШЕНО
             5. Реализовать дружелюбный для пользователя интерфейс +/-
-                5.1. Дописать что происходит на каждом шаге
+                5.1. Дописать что происходит на каждом шаге+
 
              */
         }
