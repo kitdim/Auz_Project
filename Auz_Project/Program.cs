@@ -203,6 +203,28 @@ namespace Auz_Project
             Console.ReadKey();
 
         }
+        
+        /// <summary>
+        /// Тот же шаг 1, только на двухмерном массиве
+        /// </summary>
+        /// <param двухмерный массив="E"></param>
+        /// <param известная вероятность="qj"></param>
+        static void One(double [,] E, double qj)
+        {
+            uint b = 1;                         // cчетчик для отображения какой именно проект выводится
+            for (int i = 0; i < E.Length; i++)
+            {
+                Console.Write("E{0} = ", b);
+                for (int j = 0; j < E.Length; j++)
+                {
+                    E[i,j] *= qj;                               // на этой строке ошибка перевыполнения
+                    Console.Write($"{Math.Round(E[i,j], 2)}\t");
+                }
+                b ++;
+                Console.WriteLine();
+            }
+            Console.ReadKey();
+        }
 
         /// <summary>
         /// Шаг 2. Найти минимальное значение
@@ -344,7 +366,11 @@ namespace Auz_Project
                 switch (numberChoice)
                 {
                     case "1":                                   // параметры по умолчанию
-
+                        double[,] E_1_3 = { 
+                                          { 94, 50, 18 }, 
+                                          { 51, 27, 11 }, 
+                                          { 19, 11, 7 } 
+                                          };
                         double[] E1 = { 94, 50, 18 };           // проект, требующий больших вложений             
                         double[] E2 = { 51, 27, 11 };           // проект, требующий средних вложений
                         double[] E3 = { 19, 11, 7 };            // проект, требующий малых вложений
@@ -355,6 +381,7 @@ namespace Auz_Project
                         DimaLibrary.MyLibrary.InputArrayWrite(E2); Console.WriteLine();
                         DimaLibrary.MyLibrary.InputArrayWrite(E3); Console.WriteLine();
                         Console.ReadKey();
+                        One(E_1_3, qj);
                         One(E1, E2, E3, qj);
                         double[] Gmin = Two(E1, E2, E3);
                         Two(Gmin);
@@ -409,7 +436,7 @@ namespace Auz_Project
                 2.2. Исправить ошибку ошибку в 2.1
             3. Сделать рассчет параметров от пользователя +/- 
                 3.1 Реализовать ref/out к варианту 2.: ввод данных 
-                3.3 Реализовать трехмерный массив вместо 3 отдельных массивов
+                3.2 Реализовать трехмерный массив вместо 3 отдельных массивов
             4. Проблема при выборе лучшего проекта, разобратся +, не нужно было умножать числа в массиве, в нем уже сохранилось значение
                после шага 1.Перемножить с известной вероятностью состаяния состоянием РЕШЕНО
             5. Реализовать дружелюбный для пользователя интерфейс +/-
