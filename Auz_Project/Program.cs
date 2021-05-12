@@ -270,24 +270,36 @@ namespace Auz_Project
         /// Определение выгодного проекта
         /// </summary>
         /// <param Gmax=double></param>
-        static string SelectProject(double Gmax, double qj)        
+        static string SelectProject(double Gmax, double qj)
         {
-            /* Ошибка 
-             1. Ишет нужное значение Gmax без ранее 
-                выполнннего шага ZERO(вычитание из каждого элемента матрицы 
-                самое максмальное значение из все проектов
-             */
+                /* Ошибка 
+                 2.1.   
+                    Ишет нужное значение Gmax без ранее 
+                    выполнннего шага ZERO(вычитание из каждого элемента матрицы 
+                    самое максмальное значение из все проектов
+                    
+                    !!! ИСПРАВЛЕНО !!! Добавил данные из метода ZERO
+                */
+
             double[] arE1 = { 94, 50, 18 };                        
             double[] arE2 = { 51, 27, 11 };           
-            double[] arE3 = { 19, 11, 7 };         
+            double[] arE3 = { 19, 11, 7 };
+            double maxE1 = arE1.Max();
+            double maxE2 = arE2.Max();
+            double maxE3 = arE3.Max();
+            double max;
             string E1 = "E1 эффективнее";
             string E2 = "E2 эффективнее";
             string E3 = "E3 эффективнее";
             string error = "ошибка";
 
+            if (maxE1 > maxE2 && maxE1 > maxE3) max = maxE1 + 1;
+            else if (maxE2 > maxE1 && maxE2 > maxE3) max = maxE2 + 1;
+            else max = maxE3 + 1;
+ 
             for (int i = 0; i < arE1.Length; i++)
             {
-                
+                arE1[i] -= max;
                 arE1[i] = arE1[i] * qj;
                 Math.Round(arE1[i], 2);
                 if (arE1[i] == Gmax)
@@ -295,7 +307,7 @@ namespace Auz_Project
             }
             for (int i = 0; i < arE2.Length; i++)
             {
-                
+                arE2[i] -= max;
                 arE2[i] = arE2[i] * qj;
                 Math.Round(arE2[i], 2);
                 if (arE2[i] == Gmax) 
@@ -303,7 +315,7 @@ namespace Auz_Project
             }
             for (int i = 0; i < arE3.Length; i++)
             {
-                
+                arE3[i] -= max;
                 arE3[i] = arE3[i] * qj;
                 Math.Round(arE3[i], 2);
                 if (arE3[i] == Gmax) 
@@ -357,6 +369,17 @@ namespace Auz_Project
         
         static void Main(string[] args)
         {
+            double[,] E_1_3 = {
+                              { 94, 50, 18 },
+                              { 51, 27, 11 },
+                              { 19, 11, 7 }
+                              };
+
+            double[] E1 = { 94, 50, 18 };           // проект, требующий больших вложений             
+            double[] E2 = { 51, 27, 11 };           // проект, требующий средних вложений
+            double[] E3 = { 19, 11, 7 };            // проект, требующий малых вложений
+            double qj = 0.33;                       // известная вероятность состояния
+
             while (true)
             {
                 Console.Clear();
@@ -366,22 +389,7 @@ namespace Auz_Project
                 switch (numberChoice)
                 {
                     case "1":                                   // параметры по умолчанию
-                        double[,] E_1_3 = { 
-                                          { 94, 50, 18 }, 
-                                          { 51, 27, 11 }, 
-                                          { 19, 11, 7 } 
-                                          };
-                        double[] E1 = { 94, 50, 18 };           // проект, требующий больших вложений             
-                        double[] E2 = { 51, 27, 11 };           // проект, требующий средних вложений
-                        double[] E3 = { 19, 11, 7 };            // проект, требующий малых вложений
-                        double qj = 0.33;                       // известная вероятность состояния
-
                         Zero(E1, E2, E3);
-                        DimaLibrary.MyLibrary.InputArrayWrite(E1); Console.WriteLine();
-                        DimaLibrary.MyLibrary.InputArrayWrite(E2); Console.WriteLine();
-                        DimaLibrary.MyLibrary.InputArrayWrite(E3); Console.WriteLine();
-                        Console.ReadKey();
-                        One(E_1_3, qj);
                         One(E1, E2, E3, qj);
                         double[] Gmin = Two(E1, E2, E3);
                         Two(Gmin);
@@ -412,10 +420,15 @@ namespace Auz_Project
 
                         continue;
 
-                    case "3":
+                    case "3":                                    // вывод на экран задания
 
                         Task();
                         Console.Clear(); 
+                        continue;
+
+                    case "5":                                     // попытка реализации двухмерного массива
+
+                        One(E_1_3, qj);
                         continue;
 
                     default:
@@ -425,15 +438,15 @@ namespace Auz_Project
                         continue;
                 }
             }
-           
+
 
 
             /*
             Осталось выполнить:
             1. Минимаксный критерий !
             2. Возможность ввода параметров от пользователя +
-                2.1. В отрицательные значения перенести на шаге 1 +/- Ошибка не выводит лучший проект. Коммент оставил
-                2.2. Исправить ошибку ошибку в 2.1
+                Исправлено +
+                2.1. В отрицательные значения перенести на шаге 1 +/- Ошибка не выводит лучший проект. Коммент оставил +
             3. Сделать рассчет параметров от пользователя +/- 
                 3.1 Реализовать ref/out к варианту 2.: ввод данных 
                 3.2 Реализовать трехмерный массив вместо 3 отдельных массивов
