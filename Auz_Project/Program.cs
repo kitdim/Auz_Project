@@ -205,29 +205,6 @@ namespace Auz_Project
         }
         
         /// <summary>
-        /// Тот же шаг 1, только на двухмерном массиве
-        /// </summary>
-        /// <param двухмерный массив="E"></param>
-        /// <param известная вероятность="qj"></param>
-        static void One(double [,] E, double qj)
-        {
-            uint b = 1;                                         // cчетчик для отображения какой именно проект выводится
-
-            for (int i = 0; i < E.GetLength(0); i++)
-            {
-                Console.Write("E{0} = ", b);
-                for (int j = 0; j < E.GetLength(1); j++)
-                {
-                    E[i,j] *= qj;                               // на этой строке ошибка перевыполнения Исправлено+
-                    Console.Write($"{Math.Round(E[i,j], 2)}\t");
-                }
-                b ++;
-                Console.WriteLine();
-            }
-            Console.ReadKey();
-        }
-
-        /// <summary>
         /// Шаг 2. Найти минимальное значение
         /// </summary>
         /// <param ar="double[]"></param>
@@ -367,7 +344,54 @@ namespace Auz_Project
             Console.WriteLine("\nПриходим к выводу что {0}",Project); Console.ReadKey();
         }
         #endregion
-        
+
+        #region Реализация двухмерного массива
+        /// <summary>
+        /// Делает тоже самое что Шаг 0.
+        /// </summary>
+        /// <param двухмерный массив="E"></param>
+        static void Zero(double[,] E)
+        {
+            uint b = 1;                                                   // cчетчик проектов
+            double max = (from double x in E select x).Max() + 1;         // максимальный элемент
+
+            for (int i = 0; i < E.GetLength(0); i++)
+            {
+                Console.Write("E{0} =",b);
+                for (int j = 0; j < E.GetLength(1); j++)
+                {
+                    E[i, j] -= max;
+                    Console.Write($"{E[i, j]}\t");
+                }
+                b++;
+                Console.WriteLine();
+            }
+        }
+
+        /// <summary>
+        /// Тот же шаг 1, только на двухмерном массиве
+        /// </summary>
+        /// <param двухмерный массив="E"></param>
+        /// <param известная вероятность="qj"></param>
+        static void One(double[,] E, double qj)
+        {
+            uint b = 1;                                         // cчетчик для отображения какой именно проект выводится
+
+            for (int i = 0; i < E.GetLength(0); i++)
+            {
+                Console.Write("E{0} = ", b);
+                for (int j = 0; j < E.GetLength(1); j++)
+                {
+                    E[i, j] *= qj;                               // на этой строке ошибка перевыполнения Исправлено+
+                    Console.Write($"{Math.Round(E[i, j], 2)}\t");
+                }
+                b++;
+                Console.WriteLine();
+            }
+            Console.ReadKey();
+        }
+
+        #endregion
         static void Main(string[] args)
         {
             double[,] E_1_3 = {
@@ -430,6 +454,8 @@ namespace Auz_Project
 
                     case "5":                                     // попытка реализации двухмерного массива
 
+                        MyLibrary.FillArray(E_1_3); Console.ReadKey();
+                        Zero(E_1_3);
                         One(E_1_3, qj);
                         continue;
 
@@ -452,8 +478,10 @@ namespace Auz_Project
             4. Реализовать дружелюбный для пользователя интерфейс +/-
                 4.1. Дописать что происходит на каждом шаге+
                 4.2. Поправить ввод данных в массив и вывод
-            5. Реализовать трехмерный массив вместо 3 отдельных массивов +/-
-                5.1. Отработать выполнение всех шагов 
+            5. Реализовать двухмерный массив вместо 3 отдельных массивов +/-
+                5.1. Отработать выполнение всех шагов
+                5.1.0 Сделать дружелюбный вывод шага 0
+                5.1.1 Шаг 1 +
             
             **************************************************
             Ошибки
