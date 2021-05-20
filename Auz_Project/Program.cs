@@ -352,19 +352,14 @@ namespace Auz_Project
         /// <param двухмерный массив="E"></param>
         static void Zero(double[,] E)
         {
-            uint b = 1;                                                   // cчетчик проектов
             double max = (from double x in E select x).Max() + 1;         // максимальный элемент
 
             for (int i = 0; i < E.GetLength(0); i++)
             {
-                Console.Write("E{0} =",b);
                 for (int j = 0; j < E.GetLength(1); j++)
                 {
                     E[i, j] -= max;
-                    Console.Write($"{E[i, j]}\t");
                 }
-                b++;
-                Console.WriteLine();
             }
         }
 
@@ -376,7 +371,7 @@ namespace Auz_Project
         static void One(double[,] E, double qj)
         {
             uint b = 1;                                         // cчетчик для отображения какой именно проект выводится
-
+            Console.WriteLine("Шаг 1. Умножение каждого элемента в матрице на известную вероятность состояния");
             for (int i = 0; i < E.GetLength(0); i++)
             {
                 Console.Write("E{0} = ", b);
@@ -388,8 +383,31 @@ namespace Auz_Project
                 b++;
                 Console.WriteLine();
             }
+            Console.WriteLine("\nНажмите на любую клавишу для продолжения...");
             Console.ReadKey();
         }
+
+        /// <summary>
+        /// Тот же шаг 2, только на двухмерном массиве
+        /// </summary>
+        /// <param двухмерный массив="ar"></param>
+        /// <returns>массив минимальных значений</returns>
+        //static double [] Two(double[,] E)
+        //{
+        //    double minG1, minG2, minG3;
+
+        //    for (int i = 0; i < E.GetLength(0); i++)
+        //    {
+        //        for (int j = 0; j < E.GetLength(1); j++)
+        //        {
+
+        //        }
+        //        if ()                     // minG1=min
+        //        else if ()                // minG2=min
+        //        else                      // minG3=min
+        //    } 
+        //    return 0;
+        //}
 
         #endregion
         static void Main(string[] args)
@@ -454,7 +472,6 @@ namespace Auz_Project
 
                     case "5":                                     // попытка реализации двухмерного массива
 
-                        MyLibrary.FillArray(E_1_3); Console.ReadKey();
                         Zero(E_1_3);
                         One(E_1_3, qj);
                         continue;
@@ -480,8 +497,9 @@ namespace Auz_Project
                 4.2. Поправить ввод данных в массив и вывод
             5. Реализовать двухмерный массив вместо 3 отдельных массивов +/-
                 5.1. Отработать выполнение всех шагов
-                5.1.0 Сделать дружелюбный вывод шага 0
+                5.1.0 Сделать дружелюбный вывод шага 0+
                 5.1.1 Шаг 1 +
+                5.1.2 Доделать шаг 2
             
             **************************************************
             Ошибки
