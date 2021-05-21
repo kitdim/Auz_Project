@@ -63,7 +63,7 @@ namespace Auz_Project
         }
         #endregion
 
-        #region Заполнение данных от пользователя
+        #region Заполнение данных от пользователя и его копирование
         /// <summary>
         /// Заполнение массива с клавиатуры
         /// </summary>
@@ -73,7 +73,6 @@ namespace Auz_Project
         {
             for (int i = 0; i < ar.Length; i++)
             {
-                Console.Write("E = ");
                 ar[i] = double.Parse(Console.ReadLine());
                 Console.Clear();
             }
@@ -122,7 +121,7 @@ namespace Auz_Project
         }
 
         /// <summary>
-        /// Заполнение с клавиатуры известной вероятности состояния
+        /// Заполнение и вывод с клавиатуры известной вероятности состояния
         /// </summary>
         /// <returns>известная вероятность состояния</returns>
         static double InputQJ()
@@ -371,7 +370,7 @@ namespace Auz_Project
         static void One(double[,] E, double qj)
         {
             uint b = 1;                                         // cчетчик для отображения какой именно проект выводится
-            Console.WriteLine("Шаг 1. Умножение каждого элемента в матрице на известную вероятность состояния");
+            Console.WriteLine("Шаг 1. Умножение каждого элемента в матрице на известную вероятность состояния\n");
             for (int i = 0; i < E.GetLength(0); i++)
             {
                 Console.Write("E{0} = ", b);
@@ -392,22 +391,27 @@ namespace Auz_Project
         /// </summary>
         /// <param двухмерный массив="ar"></param>
         /// <returns>массив минимальных значений</returns>
-        //static double [] Two(double[,] E)
-        //{
-        //    double minG1, minG2, minG3;
+        static double[] Two(double[,] E)
+        {
+            double minG1 = 0;
+            double minG2 = 0;
+            double minG3 = 0;
 
-        //    for (int i = 0; i < E.GetLength(0); i++)
-        //    {
-        //        for (int j = 0; j < E.GetLength(1); j++)
-        //        {
+            for (int i = 0; i < E.GetLength(0); i++)
+            {
+                double min = E[i, 0];
+                for (int j = 0; j < E.GetLength(1); j++)
+                {
+                    if (E[i, j] < min) min = E[i, j];
+                    if (i == 0) minG1 = Math.Round(min,2);
+                    else if (i == 1) minG2 = Math.Round(min, 2);
+                    else minG3 = Math.Round(min, 2);
+                }
+            }
 
-        //        }
-        //        if ()                     // minG1=min
-        //        else if ()                // minG2=min
-        //        else                      // minG3=min
-        //    } 
-        //    return 0;
-        //}
+            double[] minAr = { minG1, minG2, minG3 };
+            return minAr;
+        }
 
         #endregion
         static void Main(string[] args)
@@ -446,13 +450,13 @@ namespace Auz_Project
 
                     case "2":                                   // ввод параметров от пользователя
 
-                        double[] e1 = new double[3]; FillArray(e1);
-                        double[] e2 = new double[3]; FillArray(e2);
-                        double[] e3 = new double[3]; FillArray(e3);
-                        double qj2 = InputQJ();
+                        double[] e1 = new double[3]; Console.WriteLine("E1:"); FillArray(e1);
+                        double[] e2 = new double[3]; Console.WriteLine("E2:"); FillArray(e2); 
+                        double[] e3 = new double[3]; Console.WriteLine("E3:"); FillArray(e3);
                         double[] e1Copy = CopyArray(e1);
                         double[] e2Copy = CopyArray(e2);
                         double[] e3Copy = CopyArray(e3);
+                        double qj2 = InputQJ();
                         OutputArray(e1, e2, e3);
                         One(e1, e2, e3, qj2);
                         double[] Gmin2 = Two(e1, e2, e3);
@@ -474,6 +478,10 @@ namespace Auz_Project
 
                         Zero(E_1_3);
                         One(E_1_3, qj);
+                        double[] Gmin3 = Two(E_1_3);
+                        Two(Gmin3);
+                        double Gmax3 = Three(Gmin3);
+                        Three(Gmax3);
                         continue;
 
                     default:
@@ -499,7 +507,9 @@ namespace Auz_Project
                 5.1. Отработать выполнение всех шагов
                 5.1.0 Сделать дружелюбный вывод шага 0+
                 5.1.1 Шаг 1 +
-                5.1.2 Доделать шаг 2
+                5.1.2 Доделать шаг 2+
+                5.1.3 Шаг 3 +
+                5.1.4 Доделать вывод лучшего проекта
             
             **************************************************
             Ошибки
