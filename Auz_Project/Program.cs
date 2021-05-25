@@ -24,7 +24,7 @@ namespace Auz_Project
         /// </summary>
         static void Choice()
         {
-            Console.WriteLine(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice.txt"));
+            Console.WriteLine(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice2.txt"));
         }
 
         /// <summary>
@@ -360,9 +360,14 @@ namespace Auz_Project
             double maxE3 = ar3.Max();
             string max;
 
-            if (maxE1 > maxE2 && maxE1 > maxE3) max = "E1 выгоднее";
-            else if (maxE2 > maxE1 && maxE2 > maxE3) max = "E2 выгоднее";
-            else max = "E3 выгоднее";
+            Console.WriteLine("E1 max ={0}" +
+                              "\nE2 max ={1}" +
+                              "\nE3 max ={2}", maxE1,maxE2,maxE3);
+            Console.WriteLine();
+
+            if (maxE1 > maxE2 && maxE1 > maxE3) max = "E1 эффективнее";
+            else if (maxE2 > maxE1 && maxE2 > maxE3) max = "E2 эффективнее";
+            else max = "E3 эффективнее";
 
             return max;
         }
@@ -511,7 +516,7 @@ namespace Auz_Project
 
                     case "6":                                       // Минимаксный критерий                                       
 
-                        
+                        OutputArray(E1, E2, E3); Console.Clear();
                         Console.WriteLine(MinimaxСriterion(E1, E2, E3)); Console.ReadKey();
                         continue;
 
@@ -528,8 +533,8 @@ namespace Auz_Project
             /*
             Осталось выполнить:
             1. Минимаксный критерий +/-
-                1.0 Сделать отображение минимальных значений
-                1.1 Сделать вывод всех трёх массивов  
+                1.0 Сделать отображение минимальных значений +
+                1.1 Сделать вывод всех трёх массивов  + 
                 1.2 Сделать ввод с клавиатуры
             2. Возможность ввода параметров от пользователя +
             3. Сделать рассчет параметров от пользователя +/- 
