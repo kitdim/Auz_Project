@@ -520,11 +520,51 @@ namespace Auz_Project
                         Console.WriteLine(MinimaxСriterion(E1, E2, E3)); Console.ReadKey();
                         continue;
 
+                    case "7":                                       // ввод данных через клавиатуру
+
+                        double[] e1MinMax = new double[3]; Console.WriteLine("E1:"); FillArray(e1MinMax);
+                        double[] e2MinMax = new double[3]; Console.WriteLine("E2:"); FillArray(e2MinMax);
+                        double[] e3MinMax = new double[3]; Console.WriteLine("E3:"); FillArray(e3MinMax);
+                        OutputArray(e1MinMax, e2MinMax, e3MinMax); Console.Clear();
+                        Console.WriteLine(MinimaxСriterion(e1MinMax, e2MinMax, e3MinMax)); Console.ReadKey();
+                        continue;
+
                     default:
                         Console.Write("Делается....");
                         Console.ReadKey();
                         Console.Clear();
                         continue;
+
+                        /*
+                        case "1":
+                            File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice2.txt");
+                            Choice();
+                            string numberChoice = YourСhoice();
+                            switch (numberChoice)
+                            {
+                                case "1":
+
+                                OutputArray(E1, E2, E3); Console.Clear();
+                                Console.WriteLine(MinimaxСriterion(E1, E2, E3)); Console.ReadKey();
+                                continue;
+                                
+                                case "2":
+
+                                double[] e1 = new double[3]; Console.WriteLine("E1:"); FillArray(e1);
+                                double[] e2 = new double[3]; Console.WriteLine("E2:"); FillArray(e2); 
+                                double[] e3 = new double[3]; Console.WriteLine("E3:"); FillArray(e3);
+                                OutputArray(e1, e2, e3);
+                                Console.WriteLine(MinimaxСriterion(E1, E2, E3)); Console.ReadKey();
+                                continue;  
+                        
+                                case "3":                                    
+
+                                Task();
+                                Console.Clear(); 
+                                continue;
+                            }                
+                            continue;
+                         **/
                 }
             }
 
@@ -535,7 +575,7 @@ namespace Auz_Project
             1. Минимаксный критерий +/-
                 1.0 Сделать отображение минимальных значений +
                 1.1 Сделать вывод всех трёх массивов  + 
-                1.2 Сделать ввод с клавиатуры
+                1.2 Сделать ввод с клавиатуры+
             2. Возможность ввода параметров от пользователя +
             3. Сделать рассчет параметров от пользователя +/- 
                 3.1 Реализовать ref/out к варианту 2.: ввод данных 
