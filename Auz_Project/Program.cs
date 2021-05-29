@@ -536,10 +536,21 @@ namespace Auz_Project
                         continue;
 
                         /*
-                        case "1":
+                         *  Ниже реализация меню с подвыбором
+                         * 
+                        File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice2.txt");
+                            Choice();
+                            string numberChoice = YourСhoice();
+                            if (numberChoice == "4") { Goodbye(); break; }
+                            switch (numberChoice)
+                            {
+
+                        case "1":                                                                         //минимаксный критерий
+
                             File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice2.txt");
                             Choice();
                             string numberChoice = YourСhoice();
+                            if (numberChoice == "4") { Goodbye(); break; }
                             switch (numberChoice)
                             {
                                 case "1":
@@ -562,8 +573,77 @@ namespace Auz_Project
                                 Task();
                                 Console.Clear(); 
                                 continue;
-                            }                
+                                
+                                default:
+                                Console.Write("Делается....");
+                                Console.ReadKey();
+                                Console.Clear();
+                                continue;
+
+                            } 
+                        continue;
+                        
+                          case "2":                                                                     //критерий гермейера
+
+                            File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice2.txt");
+                            Choice();
+                            string numberChoice = YourСhoice();
+                            if (numberChoice == "4") { Goodbye(); break; }
+                            switch (numberChoice)
+
+                            {
+                                case "1":                                   // параметры по умолчанию
+
+                                Zero(E1, E2, E3);
+                                One(E1, E2, E3, qj);
+                                double[] Gmin = Two(E1, E2, E3);
+                                Two(Gmin);
+                                double Gmax = Three(Gmin);
+                                Three(Gmax);
+                                string Project = SelectProject(Gmax, qj);
+                                InputProject(Project);                       
+                                continue;
+
+                                case "2":                                   // ввод параметров от пользователя
+
+                                double[] e1 = new double[3]; Console.WriteLine("E1:"); FillArray(e1);
+                                double[] e2 = new double[3]; Console.WriteLine("E2:"); FillArray(e2); 
+                                double[] e3 = new double[3]; Console.WriteLine("E3:"); FillArray(e3);
+                                double[] e1Copy = CopyArray(e1);
+                                double[] e2Copy = CopyArray(e2);
+                                double[] e3Copy = CopyArray(e3);
+                                double qj2 = InputQJ();
+                                OutputArray(e1, e2, e3);
+                                One(e1, e2, e3, qj2);
+                                double[] Gmin2 = Two(e1, e2, e3);
+                                Two(Gmin2);
+                                double Gmax2 = Three(Gmin2);
+                                Three(Gmax2);
+                                string Project2 = SelectProject(Gmax2, e1Copy, e2Copy, e3Copy);
+                                InputProject(Project2);
+                                continue;
+
+                                case "3":                                    // вывод на экран задания
+
+                                Task();
+                                Console.Clear(); 
+                                continue;
+
+                                default:
+                                Console.Write("Делается....");
+                                Console.ReadKey();
+                                Console.Clear();
+                                continue;
+                            }
                             continue;
+
+                        case "3":
+
+                                Task();
+                                Console.Clear(); 
+                                continue;
+                        }
+
                          **/
                 }
             }
