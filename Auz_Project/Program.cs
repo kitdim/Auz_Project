@@ -444,6 +444,18 @@ namespace Auz_Project
         }
 
         #endregion
+
+        #region Сохранение значений
+        /// <summary>
+        /// Cохранение значений 
+        /// </summary>
+        /// <param лучший проект="project"></param>
+        static void Save(string project)
+        {
+            string path = @"c:\Users\kitdim\Desktop\Project\save.txt";
+            File.WriteAllText(path, project);
+        }
+        #endregion
         static void Main(string[] args)
         {
             double[,] E_1_3 = {
@@ -495,6 +507,7 @@ namespace Auz_Project
                         Three(Gmax2);
                         string Project2 = SelectProject(Gmax2, e1Copy, e2Copy, e3Copy);
                         InputProject(Project2);
+                        Save(Project2);
 
                         continue;
 
@@ -526,7 +539,7 @@ namespace Auz_Project
                         double[] e2MinMax = new double[3]; Console.WriteLine("E2:"); FillArray(e2MinMax);
                         double[] e3MinMax = new double[3]; Console.WriteLine("E3:"); FillArray(e3MinMax);
                         OutputArray(e1MinMax, e2MinMax, e3MinMax); Console.Clear();
-                        Console.WriteLine(MinimaxСriterion(e1MinMax, e2MinMax, e3MinMax)); Console.ReadKey();
+                        Console.WriteLine(MinimaxСriterion(e1MinMax, e2MinMax, e3MinMax)); Console.ReadKey(); 
                         continue;
 
                     default:
@@ -535,9 +548,12 @@ namespace Auz_Project
                         Console.Clear();
                         continue;
 
+                        #region Реализация меню с подвыбором
                         /*
                          *  Ниже реализация меню с подвыбором
                          * 
+                        while(True)
+                        {
                         File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice2.txt");
                             Choice();
                             string numberChoice = YourСhoice();
@@ -643,8 +659,10 @@ namespace Auz_Project
                                 Console.Clear(); 
                                 continue;
                         }
+                        } // exit while
 
                          **/
+                        #endregion
                 }
             }
 
@@ -656,6 +674,7 @@ namespace Auz_Project
                 1.0 Сделать отображение минимальных значений +
                 1.1 Сделать вывод всех трёх массивов  + 
                 1.2 Сделать ввод с клавиатуры+
+                1.3 Добавить сохранение
             2. Возможность ввода параметров от пользователя +
             3. Сделать рассчет параметров от пользователя +/- 
                 3.1 Реализовать ref/out к варианту 2.: ввод данных 
@@ -672,6 +691,7 @@ namespace Auz_Project
             6. Меню
                 6.1.0 Добавить в меню минимаксный критерий
                 6.1.1 Добавить к каждому критерию подменю умолчание/ввод с клавиатуры
+                
 
             **************************************************
             Ошибки
