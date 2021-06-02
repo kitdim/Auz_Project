@@ -452,8 +452,27 @@ namespace Auz_Project
         /// <param лучший проект="project"></param>
         static void Save(string project)
         {
-            string path = @"c:\Users\kitdim\Desktop\Project\save.txt";
-            File.WriteAllText(path, project);
+            Console.Write("\nCохранить полученный результат(да/нет)?");
+            while (true)
+            {
+                string result = Console.ReadLine();
+                Console.Clear();
+                switch (result)
+                {
+                    case "да":
+                        string path = @"c:\Users\kitdim\Desktop\Project\save.txt";          // расположение файла
+                        File.WriteAllText(path, project);
+                        Console.WriteLine("Сохранено..."); Console.ReadKey();
+                        break;
+                    case "нет":
+                        break;
+                    default:
+                        Console.WriteLine("Error"); Console.ReadKey();
+                        break;
+                }
+                break;
+            }
+            
         }
         #endregion
         static void Main(string[] args)
@@ -500,6 +519,7 @@ namespace Auz_Project
                         double[] e3Copy = CopyArray(e3);
                         double qj2 = InputQJ();
                         OutputArray(e1, e2, e3);
+                        Zero(e1, e2, e3);
                         One(e1, e2, e3, qj2);
                         double[] Gmin2 = Two(e1, e2, e3);
                         Two(Gmin2);
@@ -533,13 +553,14 @@ namespace Auz_Project
                         Console.WriteLine(MinimaxСriterion(E1, E2, E3)); Console.ReadKey();
                         continue;
 
-                    case "7":                                       // ввод данных через клавиатуру
+                    case "7":                                       // Минимаксный критерий ввод данных через клавиатуру
 
                         double[] e1MinMax = new double[3]; Console.WriteLine("E1:"); FillArray(e1MinMax);
                         double[] e2MinMax = new double[3]; Console.WriteLine("E2:"); FillArray(e2MinMax);
                         double[] e3MinMax = new double[3]; Console.WriteLine("E3:"); FillArray(e3MinMax);
                         OutputArray(e1MinMax, e2MinMax, e3MinMax); Console.Clear();
-                        Console.WriteLine(MinimaxСriterion(e1MinMax, e2MinMax, e3MinMax)); Console.ReadKey(); 
+                        string result = MinimaxСriterion(e1MinMax, e2MinMax, e3MinMax); Console.WriteLine(result); Console.ReadKey();
+                        Save(result);
                         continue;
 
                     default:
@@ -674,7 +695,7 @@ namespace Auz_Project
                 1.0 Сделать отображение минимальных значений +
                 1.1 Сделать вывод всех трёх массивов  + 
                 1.2 Сделать ввод с клавиатуры+
-                1.3 Добавить сохранение
+                1.3 Добавить сохранение +
             2. Возможность ввода параметров от пользователя +
             3. Сделать рассчет параметров от пользователя +/- 
                 3.1 Реализовать ref/out к варианту 2.: ввод данных 
@@ -691,14 +712,17 @@ namespace Auz_Project
             6. Меню
                 6.1.0 Добавить в меню минимаксный критерий
                 6.1.1 Добавить к каждому критерию подменю умолчание/ввод с клавиатуры
+                6.1.2 Добавить в меню результат пред. рассчета 
                 
 
             **************************************************
             Ошибки
             1. Проблема при выборе лучшего проекта, разобратся +, не нужно было умножать числа в массиве, в нем уже сохранилось значение
                после шага 1.Перемножить с известной вероятностью состаяния состоянием + ИСПРАВЛЕНО 
-            2.1. В отрицательные значения перенести на шаге 1 +/- Ошибка не выводит лучший проект. Коммент оставил + ИСПРАВЛЕНО
-            3.1  Ошибка в методе One (в параметрах двухмерный массив и вероятность состояния) переполнение массива + ИСПРАВЛЕНО (E.GetLength(0))
+            2. В отрицательные значения перенести на шаге 1 +/- Ошибка не выводит лучший проект. Коммент оставил + ИСПРАВЛЕНО
+            3. Ошибка в методе One (в параметрах двухмерный массив и вероятность состояния) переполнение массива + ИСПРАВЛЕНО (E.GetLength(0))
+            4. Ошибка на вводе(добавить проверку на тип данных и проверку на NULL)
+
 
              */
         }
