@@ -8,7 +8,7 @@ namespace Auz_Project
 {
     class Program
     {
-        #region Задание, функционал, выбор кейса, прощание
+        #region Задание, функционал, выбор кейса, прощание, предыдущий результат
         /// <summary>
         /// Задание
         /// </summary>
@@ -23,6 +23,14 @@ namespace Auz_Project
         ///  Функционал программы
         /// </summary>
         static void Choice()
+        {
+            Console.WriteLine(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice.txt"));
+        }
+
+        /// <summary>
+        /// Функционал подпрограммы
+        /// </summary>
+        static void Choice2()
         {
             Console.WriteLine(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice2.txt"));
         }
@@ -61,9 +69,18 @@ namespace Auz_Project
             Console.ReadKey();
 
         }
+        /// <summary>
+        /// Вывод пред. результата
+        /// </summary>
+        static void Last_Result()
+        {
+            Console.Write(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\save.txt") +
+                                            "\n\nНажмите на любую на клавишу для продолжения...");
+            Console.ReadKey();
+        }
         #endregion
 
-        #region Заполнение данных от пользователя и его копирование
+        #region Заполнение массива данными от пользователя и его копирование
         /// <summary>
         /// Заполнение массива с клавиатуры
         /// </summary>
@@ -493,43 +510,86 @@ namespace Auz_Project
                 Console.Clear();
                 Choice();
                 string numberChoice = YourСhoice();
-                if (numberChoice == "4") { Goodbye(); break; }
+                if (numberChoice == "5") { Goodbye(); break; }
                 switch (numberChoice)
                 {
-                    case "1":                                   // параметры по умолчанию
+                    case "1":                                   // Переход в минимаксный критерий
+                        while (true)
+                        {
+                            Console.Clear();
+                            Choice2();
+                            string numberChoice2 = YourСhoice();
+                            if (numberChoice2 == "3") break;
 
-                        Zero(E1, E2, E3);
-                        One(E1, E2, E3, qj);
-                        double[] Gmin = Two(E1, E2, E3);
-                        Two(Gmin);
-                        double Gmax = Three(Gmin);
-                        Three(Gmax);
-                        string Project = SelectProject(Gmax, qj);
-                        InputProject(Project);
-                        
-                        continue;
+                            switch(numberChoice2)
+                            {
+                                case "1":                      // по умолчанию              
 
-                    case "2":                                   // ввод параметров от пользователя
+                                    OutputArray(E1, E2, E3); Console.Clear();
+                                    Console.WriteLine(MinimaxСriterion(E1, E2, E3)); Console.ReadKey();
+                                    continue;
 
-                        double[] e1 = new double[3]; Console.WriteLine("E1:"); FillArray(e1);
-                        double[] e2 = new double[3]; Console.WriteLine("E2:"); FillArray(e2); 
-                        double[] e3 = new double[3]; Console.WriteLine("E3:"); FillArray(e3);
-                        double[] e1Copy = CopyArray(e1);
-                        double[] e2Copy = CopyArray(e2);
-                        double[] e3Copy = CopyArray(e3);
-                        double qj2 = InputQJ();
-                        OutputArray(e1, e2, e3);
-                        Zero(e1, e2, e3);
-                        One(e1, e2, e3, qj2);
-                        double[] Gmin2 = Two(e1, e2, e3);
-                        Two(Gmin2);
-                        double Gmax2 = Three(Gmin2);
-                        Three(Gmax2);
-                        string Project2 = SelectProject(Gmax2, e1Copy, e2Copy, e3Copy);
-                        InputProject(Project2);
-                        Save(Project2);
+                                case "2":                       // ввод через клавиатуру
 
-                        continue;
+                                    double[] e1MinMax = new double[3]; Console.WriteLine("E1:"); FillArray(e1MinMax);
+                                    double[] e2MinMax = new double[3]; Console.WriteLine("E2:"); FillArray(e2MinMax);
+                                    double[] e3MinMax = new double[3]; Console.WriteLine("E3:"); FillArray(e3MinMax);
+                                    OutputArray(e1MinMax, e2MinMax, e3MinMax); Console.Clear();
+                                    string result = MinimaxСriterion(e1MinMax, e2MinMax, e3MinMax); Console.WriteLine(result); Console.ReadKey();
+                                    Save(result);
+                                    continue;
+
+                            }                            
+                        }
+                        break;
+
+                    case "2":                                   // Переход в критерий Геймейера
+                        while (true)
+                        {
+                            Console.Clear();
+                            Choice2();
+                            string numberChoice2 = YourСhoice();
+                            if (numberChoice2 == "3") break;
+
+                            switch(numberChoice2)
+                            {
+                                case "1":                       // по умолчанию
+
+                                    Zero(E1, E2, E3);
+                                    One(E1, E2, E3, qj);
+                                    double[] Gmin = Two(E1, E2, E3);
+                                    Two(Gmin);
+                                    double Gmax = Three(Gmin);
+                                    Three(Gmax);
+                                    string Project = SelectProject(Gmax, qj);
+                                    InputProject(Project);
+
+                                    continue;
+
+                                case "2":                       // ввод через клавиатуру
+
+                                    double[] e1 = new double[3]; Console.WriteLine("E1:"); FillArray(e1);
+                                    double[] e2 = new double[3]; Console.WriteLine("E2:"); FillArray(e2);
+                                    double[] e3 = new double[3]; Console.WriteLine("E3:"); FillArray(e3);
+                                    double[] e1Copy = CopyArray(e1);
+                                    double[] e2Copy = CopyArray(e2);
+                                    double[] e3Copy = CopyArray(e3);
+                                    double qj2 = InputQJ();
+                                    OutputArray(e1, e2, e3);
+                                    Zero(e1, e2, e3);
+                                    One(e1, e2, e3, qj2);
+                                    double[] Gmin2 = Two(e1, e2, e3);
+                                    Two(Gmin2);
+                                    double Gmax2 = Three(Gmin2);
+                                    Three(Gmax2);
+                                    string Project2 = SelectProject(Gmax2, e1Copy, e2Copy, e3Copy);
+                                    InputProject(Project2);
+                                    Save(Project2);
+
+                                    continue;
+                            }
+                        }
+                        break;
 
                     case "3":                                    // вывод на экран задания
 
@@ -537,7 +597,13 @@ namespace Auz_Project
                         Console.Clear(); 
                         continue;
 
-                    case "5":                                     // попытка реализации двухмерного массива
+                    case "4":                                    // вывод пред результата
+
+                        Last_Result();
+                        Console.Clear();
+                        continue;
+
+                    case "6":                                     // попытка реализации двухмерного массива
 
                         Zero(E_1_3);
                         One(E_1_3, qj);
@@ -547,143 +613,12 @@ namespace Auz_Project
                         Three(Gmax3);
                         continue;
 
-                    case "6":                                       // Минимаксный критерий                                       
-
-                        OutputArray(E1, E2, E3); Console.Clear();
-                        Console.WriteLine(MinimaxСriterion(E1, E2, E3)); Console.ReadKey();
-                        continue;
-
-                    case "7":                                       // Минимаксный критерий ввод данных через клавиатуру
-
-                        double[] e1MinMax = new double[3]; Console.WriteLine("E1:"); FillArray(e1MinMax);
-                        double[] e2MinMax = new double[3]; Console.WriteLine("E2:"); FillArray(e2MinMax);
-                        double[] e3MinMax = new double[3]; Console.WriteLine("E3:"); FillArray(e3MinMax);
-                        OutputArray(e1MinMax, e2MinMax, e3MinMax); Console.Clear();
-                        string result = MinimaxСriterion(e1MinMax, e2MinMax, e3MinMax); Console.WriteLine(result); Console.ReadKey();
-                        Save(result);
-                        continue;
-
                     default:
                         Console.Write("Делается....");
                         Console.ReadKey();
                         Console.Clear();
                         continue;
 
-                        #region Реализация меню с подвыбором
-                        /*
-                         *  Ниже реализация меню с подвыбором
-                         * 
-                        while(True)
-                        {
-                        File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice2.txt");
-                            Choice();
-                            string numberChoice = YourСhoice();
-                            if (numberChoice == "4") { Goodbye(); break; }
-                            switch (numberChoice)
-                            {
-
-                        case "1":                                                                         //минимаксный критерий
-
-                            File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice2.txt");
-                            Choice();
-                            string numberChoice = YourСhoice();
-                            if (numberChoice == "4") { Goodbye(); break; }
-                            switch (numberChoice)
-                            {
-                                case "1":
-
-                                OutputArray(E1, E2, E3); Console.Clear();
-                                Console.WriteLine(MinimaxСriterion(E1, E2, E3)); Console.ReadKey();
-                                continue;
-                                
-                                case "2":
-
-                                double[] e1 = new double[3]; Console.WriteLine("E1:"); FillArray(e1);
-                                double[] e2 = new double[3]; Console.WriteLine("E2:"); FillArray(e2); 
-                                double[] e3 = new double[3]; Console.WriteLine("E3:"); FillArray(e3);
-                                OutputArray(e1, e2, e3);
-                                Console.WriteLine(MinimaxСriterion(E1, E2, E3)); Console.ReadKey();
-                                continue;  
-                        
-                                case "3":                                    
-
-                                Task();
-                                Console.Clear(); 
-                                continue;
-                                
-                                default:
-                                Console.Write("Делается....");
-                                Console.ReadKey();
-                                Console.Clear();
-                                continue;
-
-                            } 
-                        continue;
-                        
-                          case "2":                                                                     //критерий гермейера
-
-                            File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice2.txt");
-                            Choice();
-                            string numberChoice = YourСhoice();
-                            if (numberChoice == "4") { Goodbye(); break; }
-                            switch (numberChoice)
-
-                            {
-                                case "1":                                   // параметры по умолчанию
-
-                                Zero(E1, E2, E3);
-                                One(E1, E2, E3, qj);
-                                double[] Gmin = Two(E1, E2, E3);
-                                Two(Gmin);
-                                double Gmax = Three(Gmin);
-                                Three(Gmax);
-                                string Project = SelectProject(Gmax, qj);
-                                InputProject(Project);                       
-                                continue;
-
-                                case "2":                                   // ввод параметров от пользователя
-
-                                double[] e1 = new double[3]; Console.WriteLine("E1:"); FillArray(e1);
-                                double[] e2 = new double[3]; Console.WriteLine("E2:"); FillArray(e2); 
-                                double[] e3 = new double[3]; Console.WriteLine("E3:"); FillArray(e3);
-                                double[] e1Copy = CopyArray(e1);
-                                double[] e2Copy = CopyArray(e2);
-                                double[] e3Copy = CopyArray(e3);
-                                double qj2 = InputQJ();
-                                OutputArray(e1, e2, e3);
-                                One(e1, e2, e3, qj2);
-                                double[] Gmin2 = Two(e1, e2, e3);
-                                Two(Gmin2);
-                                double Gmax2 = Three(Gmin2);
-                                Three(Gmax2);
-                                string Project2 = SelectProject(Gmax2, e1Copy, e2Copy, e3Copy);
-                                InputProject(Project2);
-                                continue;
-
-                                case "3":                                    // вывод на экран задания
-
-                                Task();
-                                Console.Clear(); 
-                                continue;
-
-                                default:
-                                Console.Write("Делается....");
-                                Console.ReadKey();
-                                Console.Clear();
-                                continue;
-                            }
-                            continue;
-
-                        case "3":
-
-                                Task();
-                                Console.Clear(); 
-                                continue;
-                        }
-                        } // exit while
-
-                         **/
-                        #endregion
                 }
             }
 
@@ -710,9 +645,9 @@ namespace Auz_Project
                 5.1.3 Шаг 3 +
                 5.1.4 Доделать вывод лучшего проекта
             6. Меню
-                6.1.0 Добавить в меню минимаксный критерий
-                6.1.1 Добавить к каждому критерию подменю умолчание/ввод с клавиатуры
-                6.1.2 Добавить в меню результат пред. рассчета 
+                6.1.0 Добавить в меню минимаксный критерий +
+                6.1.1 Добавить к каждому критерию подменю умолчание/ввод с клавиатуры +
+                6.1.2 Добавить в меню результат пред. рассчета  +
                 
 
             **************************************************
