@@ -105,10 +105,12 @@ namespace Auz_Project
         /// <summary>
         /// Вывод пред. результата
         /// </summary>
-        static void Last_Result(string project)
+        static void Last_Result()
         {
-            Console.Write(File.ReadAllText($"{project}") +
+            
+            Console.Write(File.ReadAllText(@"c:TestFile.txt") +
                                             "\n\nНажмите на любую на клавишу для продолжения...");
+
             Console.ReadKey();
         }
         #endregion
@@ -529,7 +531,8 @@ namespace Auz_Project
                 switch (result)
                 {
                     case "да":
-                        string path = project;
+                        string path = @"c:TestFile.txt";
+                        File.WriteAllText(path, project);
                         Console.WriteLine("Сохранено..."); Console.ReadKey();
                         return path;
                     case "нет":
@@ -545,6 +548,7 @@ namespace Auz_Project
         #endregion
         static void Main(string[] args)
         {
+            
             double[,] E_1_3 = {
                               { 94, 50, 18 },
                               { 51, 27, 11 },
@@ -581,9 +585,11 @@ namespace Auz_Project
                                     continue;
 
                                 case "2":                       // ввод через клавиатуру
-
+                                    Console.WriteLine("Вводить только числа, дробное число вводите через , ");
                                     double[] e1MinMax = new double[3]; Console.WriteLine("E1:"); FillArray(e1MinMax);
+                                    Console.WriteLine("Вводить только числа, дробное число вводите через , ");
                                     double[] e2MinMax = new double[3]; Console.WriteLine("E2:"); FillArray(e2MinMax);
+                                    Console.WriteLine("Вводить только числа, дробное число вводите через , ");
                                     double[] e3MinMax = new double[3]; Console.WriteLine("E3:"); FillArray(e3MinMax);
                                     OutputArray(e1MinMax, e2MinMax, e3MinMax); Console.Clear();
                                     string result = MinimaxСriterion(e1MinMax, e2MinMax, e3MinMax); Console.WriteLine(result); Console.ReadKey();
@@ -618,13 +624,16 @@ namespace Auz_Project
                                     continue;
 
                                 case "2":                       // ввод через клавиатуру
-
+                                    Console.WriteLine("Вводить только числа, дробное число вводите через , ");
                                     double[] e1 = new double[3]; Console.WriteLine("E1:"); FillArray(e1);
+                                    Console.WriteLine("Вводить только числа, дробное число вводите через , ");
                                     double[] e2 = new double[3]; Console.WriteLine("E2:"); FillArray(e2);
+                                    Console.WriteLine("Вводить только числа, дробное число вводите через , ");
                                     double[] e3 = new double[3]; Console.WriteLine("E3:"); FillArray(e3);
                                     double[] e1Copy = CopyArray(e1);
                                     double[] e2Copy = CopyArray(e2);
                                     double[] e3Copy = CopyArray(e3);
+                                    Console.WriteLine("Вводить только числа, дробное число вводите через , ");
                                     double qj2 = InputQJ();
                                     OutputArray(e1, e2, e3);
                                     Zero(e1, e2, e3);
@@ -650,7 +659,7 @@ namespace Auz_Project
 
                     case "4":                                    // вывод пред результата
 
-                        Last_Result(project);
+                        Last_Result();
                         Console.Clear();
                         continue;
 

@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="D:\other\учеба\политех\3 курс зимняя и летняя\летняя\Многокритериальные методы\Project\Program.cs" Link="Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\MyLibrary\MyLibrary\MyLibrary.csproj" />
   </ItemGroup>
 
