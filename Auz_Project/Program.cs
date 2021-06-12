@@ -14,8 +14,27 @@ namespace Auz_Project
         /// </summary>
         static void Task() 
         {
-            Console.Write(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\task.txt")+
-                                            "\n\nНажмите на любую на клавишу для продолжения...");
+           string task = "Вариант12." +
+                "\nКритерий Гермейера (qj =0.33) и Минимаксный критерий." +
+                "\n\nРазработать автоматизированную программу выбора оптимального " +
+                "\nрешения с использованием заданных критериев." +
+                "\nАкционеры на собрании Закрытого акционерного общества «Энергосвязь» обсуждают три проекта вложения инвестиций. " +
+                "\nВарианты решений таковы:" +
+                "\nE1 – проект, требующий больших вложений;" +
+                "\nE2 – проект, требующий средних финансовых вложений;" +
+                "\nE3 – проект, требующий небольших вложений." +
+                "\n" +
+                "\nУсловия, вызываемые необходимость рассмотрения и утверждения проектов следующие:" +
+                "\nF1 - большие доходы, но в течение нескольких лет;" +
+                "\nF2 - средние доходы в ближайшее время;" +
+                "\nF3 - больших доходов не предвидится, но обеспечится престижность, высокое общественное звучание проекта. " +
+                "\nРезультаты решений eij оцениваются величиной прибыли в американских долларах" +
+                "\n\t\t       F1  F2  F3" +
+                "\n\t\tE1 = { 94, 50, 18 };" +
+                "\n\t\tE2 = { 51, 27, 11 };" +
+                "\n\t\tE3 = { 19, 11, 7  };";
+            Console.Write($"{task}"+
+                   "\n\nНажмите на любую на клавишу для продолжения...");
             Console.ReadKey();
         }
 
@@ -24,7 +43,15 @@ namespace Auz_Project
         /// </summary>
         static void Choice()
         {
-            Console.WriteLine(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice.txt"));
+            string choice = 
+                "\n++++++++++++++++++++++++++++++++++" +
+                "\n1-Минимаксный критерий" +
+                "\n2-Критерий Гермейера" +
+                "\n3-показать задание" +
+                "\n4-предыдущий результат" +
+                "\n5-выход" +
+                "\n++++++++++++++++++++++++++++++++++";
+            Console.WriteLine($"{choice}");
         }
 
         /// <summary>
@@ -32,7 +59,13 @@ namespace Auz_Project
         /// </summary>
         static void Choice2()
         {
-            Console.WriteLine(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\Choice2.txt"));
+            string choice =
+                "\n++++++++++++++++++++++++++++++++++" +
+                "\n1-параметры по умолчанию         " +
+                "\n2-ввод параметров пользователем  " +
+                "\n3-вернуться назад                			        " +
+                "\n++++++++++++++++++++++++++++++++++";
+            Console.WriteLine($"{choice}");
         }
 
         /// <summary>
@@ -72,9 +105,9 @@ namespace Auz_Project
         /// <summary>
         /// Вывод пред. результата
         /// </summary>
-        static void Last_Result()
+        static void Last_Result(string project)
         {
-            Console.Write(File.ReadAllText(@"c:\Users\kitdim\Desktop\Project\save.txt") +
+            Console.Write(File.ReadAllText($"{project}") +
                                             "\n\nНажмите на любую на клавишу для продолжения...");
             Console.ReadKey();
         }
@@ -486,7 +519,7 @@ namespace Auz_Project
         /// Cохранение значений 
         /// </summary>
         /// <param лучший проект="project"></param>
-        static void Save(string project)
+        static string Save(string project)
         {
             Console.Write("\nCохранить полученный результат(да/нет)?");
             while (true)
@@ -496,17 +529,16 @@ namespace Auz_Project
                 switch (result)
                 {
                     case "да":
-                        string path = @"c:\Users\kitdim\Desktop\Project\save.txt";          // расположение файла
-                        File.WriteAllText(path, project);
+                        string path = project;
                         Console.WriteLine("Сохранено..."); Console.ReadKey();
-                        break;
+                        return path;
                     case "нет":
-                        break;
+                        return null;
                     default:
                         Console.WriteLine("Error"); Console.ReadKey();
-                        break;
+                        return null;
                 }
-                break;
+                
             }
             
         }
@@ -618,7 +650,7 @@ namespace Auz_Project
 
                     case "4":                                    // вывод пред результата
 
-                        Last_Result();
+                        Last_Result(project);
                         Console.Clear();
                         continue;
 
@@ -666,7 +698,7 @@ namespace Auz_Project
             6. Меню
                 6.1.0 Добавить в меню минимаксный критерий +
                 6.1.1 Добавить к каждому критерию подменю умолчание/ввод с клавиатуры +
-                6.1.2 Добавить в меню результат пред. рассчета  +
+                6.1.2 Добавить в меню результат пред. рассчета  
                 
 
             **************************************************
