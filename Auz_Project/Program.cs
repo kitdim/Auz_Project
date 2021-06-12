@@ -177,8 +177,27 @@ namespace Auz_Project
         static double InputQJ()
         {
             Console.Write("qj = ");
-            double qj = double.Parse(Console.ReadLine());
-            return qj;
+            double x = double.Parse(Console.ReadLine());
+            //int b = 3;
+            //while (b==0)
+            //{
+            //    string qj = Console.ReadLine();
+            //    if (double.TryParse(qj, out x))
+            //    {
+            //        return x;
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Введено не число!!! \n" +
+            //                          "Осталось {0} попытки", b);
+            //        b--;
+            //        continue;
+            //    }               
+            //}
+            //x = 0.33;
+            //Console.Write("Выставляется значений по умолчанию {0}", x);
+            return x;
+            
         }
         #endregion
 
